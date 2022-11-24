@@ -5,6 +5,7 @@ import { useInput } from "ink"
 import { Newline } from "ink"
 import { useState } from "react"
 import { Box } from "ink"
+import Post from "./post"
 
 const TabNews = () => {
   const [page, setPage] = useState(1)
@@ -14,8 +15,12 @@ const TabNews = () => {
   const strategies: ["new", "old", "relevant"] = ["new", "old", "relevant"]
   const [strategyIndex, setStrategyIndex] = useState(0)
 
+  const [post, setPost] = useState<string | null>(null)
+
   useInput((_input, key) => {
-    if (key.tab) {
+    if (key.escape) {
+      setPost(null)
+    } else if (key.tab) {
       if (strategyIndex < strategies.length - 1) {
         setStrategyIndex(strategyIndex + 1)
       } else {
@@ -42,16 +47,22 @@ const TabNews = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column">
-        <Text bold={true}>Página: {page}</Text>
-        {strategies.map((strategy, i) => (
-          <Text key={strategy} bold={strategyIndex == i}>
-            {strategy}
-          </Text>
-        ))}
-      </Box>
-      <Newline />
-      <Posts page={page} perPage={perPage} strategy={strategies[strategyIndex]} selected={selected} />
+      {post ? (
+        <Post url={post} />
+      ) : (
+        <>
+          <Box display="flex" flexDirection="column">
+            <Text bold={true}>Página: {page}</Text>
+            {strategies.map((strategy, i) => (
+              <Text key={strategy} bold={strategyIndex == i}>
+                {strategy}
+              </Text>
+            ))}
+          </Box>
+          <Newline />
+          <Posts page={page} perPage={perPage} strategy={strategies[strategyIndex]} selected={selected} onPostSelect={url => setPost(url)} />
+        </>
+      )}
     </>
   )
 }
