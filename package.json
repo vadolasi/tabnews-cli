@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "date-fns": "^2.29.3",
     "ink": "^3.2.0",
+    "ink-link": "^2.0.0",
     "marked": "^4.2.3",
     "marked-terminal": "^5.1.1",
     "react": "^18.2.0",

@@ -1,9 +1,8 @@
 import React from "react"
-import { Text, Newline } from "ink"
+import { Text, Newline, Box, useInput } from "ink"
 import useSWR from "swr"
 import { request } from "undici"
-import { Box } from "ink"
-import { useInput } from "ink"
+import Link from "ink-link"
 
 const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url}`)
   .then(res => res.body.json())
@@ -35,11 +34,11 @@ const Posts: React.FC<Props> = ({ page, perPage, strategy, selected, onPostSelec
     <>
       {data ? (
         (data as any[]).map((post, i) => (
-          <Box key={post.id}>
-            <Text backgroundColor={selected == i ? "blue" : undefined}>
-              {post.title}
-            </Text>
-            <Newline />
+          <Box key={post.id} marginTop={1}>
+            {/* @ts-ignore */}
+            <Link url={`https://tabnews.com.br/${post.owner_id}/${post.slug}`}>
+              <Text backgroundColor={selected == i ? "cyan" : undefined}>{post.tabcoins} - {post.title}</Text>
+            </Link>
           </Box>
         ))
       ) : <Text>Loading...</Text>}
