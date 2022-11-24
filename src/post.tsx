@@ -8,6 +8,7 @@ import { Box } from "ink"
 import Link from "ink-link"
 import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
+import Spinner from "ink-spinner"
 
 marked.setOptions({
   renderer: new TerminalRenderer()
@@ -73,9 +74,27 @@ const Post: React.FC<Props> = ({ url }) => {
                 <Comment key={comment.id} comment={comment} responses={comment.children} deep={0} />
               ))}
             </>
-          ) : <Text>Loading comments...</Text>}
+          ) : (
+            <Box marginTop={1}>
+              <Text>
+                <Text color="green">
+                <Spinner type="dots" />
+                </Text>
+                {" "}Carregando posts
+              </Text>
+            </Box>
+          )}
         </Box>
-      ) : <Text>Loading...</Text>}
+      ) : (
+        <Box marginTop={1}>
+          <Text>
+		        <Text color="green">
+			      <Spinner type="dots" />
+		        </Text>
+		        {" "}Carregando posts
+	        </Text>
+        </Box>
+      )}
     </>
   )
 }

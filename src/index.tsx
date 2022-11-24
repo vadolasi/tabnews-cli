@@ -11,7 +11,7 @@ const TabNews = () => {
   const perPage = 20
   const [selected, setSelected] = React.useState(0)
 
-  const strategies: ["new", "old", "relevant"] = ["new", "old", "relevant"]
+  const strategies = { "relevant": "Relevantes", "new": "Recentes", "old": "Antigos" }
   const [strategyIndex, setStrategyIndex] = useState(0)
 
   const [post, setPost] = useState<string | null>(null)
@@ -20,7 +20,7 @@ const TabNews = () => {
     if (key.escape || key.backspace) {
       setPost(null)
     } else if (key.tab && !post) {
-      if (strategyIndex < strategies.length - 1) {
+      if (strategyIndex < Object.entries(strategies).length - 1) {
         setStrategyIndex(strategyIndex + 1)
       } else {
         setStrategyIndex(0)
@@ -52,15 +52,14 @@ const TabNews = () => {
         <Post url={post} />
       ) : (
         <>
-          <Box display="flex" flexDirection="column">
-            <Text bold={true}>Página: {page}</Text>
-            {strategies.map((strategy, i) => (
-              <Text key={strategy} bold={strategyIndex == i}>
-                {strategy}
+          <Box>
+            {Object.entries(strategies).map(([name, label], i) => (
+              <Text key={name} bold={strategyIndex == i} color={strategyIndex == i ? "yellow" : undefined}>
+                {label}{" "}
               </Text>
             ))}
           </Box>
-          <Posts page={page} perPage={perPage} strategy={strategies[strategyIndex]} selected={selected} onPostSelect={url => setPost(url)} />
+          <Posts page={page} perPage={perPage} strategy={Object.keys(strategies)[strategyIndex]} selected={selected} onPostSelect={url => setPost(url)} />
         </>
       )}
     </>

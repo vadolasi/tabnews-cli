@@ -8,6 +8,7 @@ specifiers:
   date-fns: ^2.29.3
   ink: ^3.2.0
   ink-link: ^2.0.0
+  ink-spinner: ^4.0.3
   marked: ^4.2.3
   marked-terminal: ^5.1.1
   nodemon: ^2.0.20
@@ -21,6 +22,7 @@ dependencies:
   date-fns: 2.29.3
   ink: 3.2.0_fan5qbzahqtxlm5dzefqlqx5ia
   ink-link: 2.0.0_ink@3.2.0+react@18.2.0
+  ink-spinner: 4.0.3_ink@3.2.0+react@18.2.0
   marked: 4.2.3
   marked-terminal: 5.1.1_marked@4.2.3
   react: 18.2.0
@@ -235,6 +237,11 @@ packages:
       restore-cursor: 3.1.0
     dev: false
 
+  /cli-spinners/2.7.0:
+    resolution: {integrity: sha512-qu3pN8Y3qHNgE2AFweciB1IfMnmZ/fsNTEE+NOFjmGB2F/7rLhnhzppvpCnN4FovtP26k8lHyy9ptEbNwWFLzw==}
+    engines: {node: '>=6'}
+    dev: false
+
   /cli-table3/0.6.3:
     resolution: {integrity: sha512-w5Jac5SykAeZJKntOxJCrm63Eg5/4dhMWIcuTbo9rpE+brgaSZo0RuNJZeOyMgsUdhDeojvgyQLmjI+K50ZGyg==}
     engines: {node: 10.* || >= 12.*}
@@ -412,6 +419,18 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       terminal-link: 2.1.1
+    dev: false
+
+  /ink-spinner/4.0.3_ink@3.2.0+react@18.2.0:
+    resolution: {integrity: sha512-uJ4nbH00MM9fjTJ5xdw0zzvtXMkeGb0WV6dzSWvFv2/+ks6FIhpkt+Ge/eLdh0Ah6Vjw5pLMyNfoHQpRDRVFbQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      ink: '>=3.0.5'
+      react: '>=16.8.2'
+    dependencies:
+      cli-spinners: 2.7.0
+      ink: 3.2.0_fan5qbzahqtxlm5dzefqlqx5ia
+      react: 18.2.0
     dev: false
 
   /ink/3.2.0_fan5qbzahqtxlm5dzefqlqx5ia:
