@@ -1,0 +1,5 @@
+{
+  "execMap":{
+    "tsx": "node -r sucrase/register"
+  }
+}
