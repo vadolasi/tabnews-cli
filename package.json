@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.tsx"
+    "dev": "nodemon src/index.tsx --no-stdin"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ink": "^3.2.0",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "swr": "^1.3.0",
+    "undici": "^5.12.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
