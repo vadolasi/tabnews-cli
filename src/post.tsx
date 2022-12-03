@@ -1,7 +1,7 @@
 import React from "react"
 import useSWR from "swr"
 import { request } from "undici"
-import { Text } from "ink"
+import { Text, useInput } from "ink"
 import { marked } from "marked"
 import TerminalRenderer from "marked-terminal"
 import { Box } from "ink"
@@ -9,6 +9,7 @@ import Link from "ink-link"
 import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
 import Spinner from "ink-spinner"
+import Comment from "./comment"
 
 marked.setOptions({
   renderer: new TerminalRenderer()
@@ -24,42 +25,25 @@ const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url
 
 interface Props {
   url: string
+  pushRoute: (route: string) => void
 }
 
-
-const Comment: React.FC<{ comment: any, responses: any, deep: number }> = ({ comment, responses, deep }) => {
-  return (
-    <>
-      <Box flexDirection="column" marginLeft={deep * 3} borderStyle="round" padding={1}>
-        <Box>
-          {/* @ts-ignore */}
-          <Text bold={true}>{comment.owner_username}</Text>
-          <Text> - </Text>
-          <Text color="blue">{comment.tabcoins} tabcoins</Text>
-          <Text> - </Text>
-          <Text dimColor={true}>{formatDistance(new Date(comment.created_at), new Date(), { locale: pt, addSuffix: true, includeSeconds: true })} atrás</Text>
-        </Box>
-        <Box>
-          <Text>{parserMarkdown(comment.body)}</Text>
-        </Box>
-      </Box>
-      {responses.map((response: any) => (
-        <Comment key={response.id} comment={response} responses={response.children} deep={deep + 1} />
-      ))}
-    </>
-  )
-}
-
-const Post: React.FC<Props> = ({ url }) => {
+const Post: React.FC<Props> = ({ url, pushRoute }) => {
   const { data: post } = useSWR(`/contents${url}`, fetcher)
   const { data: comments } = useSWR(`/contents${url}/children`, fetcher)
+
+  useInput((input, key) => {
+    if (key.escape || key.backspace) {
+      pushRoute("posts")
+    }
+  })
 
 	return (
     <>
       {post ? (
         <Box flexDirection="column">
           {/* @ts-ignore */}
-          <Link url={`https://tabnews.com.br${url}`}>
+          <Link url={`https://www.tabnews.com.br${url}`}>
             <Text bold={true}>{post.title}</Text>
           </Link>
           <Text color="blueBright">{post.tabcoins} tabcoins</Text>
@@ -88,11 +72,11 @@ const Post: React.FC<Props> = ({ url }) => {
       ) : (
         <Box marginTop={1}>
           <Text>
-		        <Text color="green">
-			      <Spinner type="dots" />
-		        </Text>
-		        {" "}Carregando posts
-	        </Text>
+            <Text color="green">
+            <Spinner type="dots" />
+          </Text>
+          {" "}Carregando posts
+          </Text>
         </Box>
       )}
     </>

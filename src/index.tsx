@@ -1,66 +1,61 @@
-import React from "react"
-import { render, Text } from "ink"
+import React, { useCallback } from "react"
+import { Box, render, useInput, Text } from "ink"
 import Posts from "./posts"
-import { useInput } from "ink"
 import { useState } from "react"
-import { Box } from "ink"
 import Post from "./post"
+import Login from "./login"
+import Profile from "./components/Profile"
+import TextInput from "ink-text-input"
 
 const TabNews = () => {
-  const [page, setPage] = useState(1)
-  const perPage = 20
-  const [selected, setSelected] = React.useState(0)
+  const [url, setUrl] = useState("")
+  const [route, setRoute] = useState("posts")
+  const [query, setQuery] = useState("")
+  const [typing, setTyping] = useState(false)
 
-  const strategies = { "relevant": "Relevantes", "new": "Recentes", "old": "Antigos" }
-  const [strategyIndex, setStrategyIndex] = useState(0)
+  const pushRoute = (route: string) => {
+    setRoute(route)
+  }
 
-  const [post, setPost] = useState<string | null>(null)
+  useInput((input, key) => {
+    if (typing) {
+      if (key.return) {
+        setTyping(false)
 
-  useInput((_input, key) => {
-    if (key.escape || key.backspace) {
-      setPost(null)
-    } else if (key.tab && !post) {
-      if (strategyIndex < Object.entries(strategies).length - 1) {
-        setStrategyIndex(strategyIndex + 1)
-      } else {
-        setStrategyIndex(0)
+        switch (query) {
+          case "login":
+            pushRoute("login")
+            break
+        }
+
+      } else if (key.escape) {
+        setTyping(false)
       }
-    } else if (key.upArrow && !post) {
-      if (selected > 0) {
-        setSelected(selected - 1)
-      } else {
-        setSelected(perPage - 1)
-      }
-    } else if (key.downArrow && !post) {
-      if (selected < perPage - 1) {
-        setSelected(selected + 1)
-      } else {
-        setSelected(0)
-      }
-    } else if (key.leftArrow && !post) {
-      if (page > 1) {
-        setPage(page - 1)
-      }
-    } else if (key.rightArrow && !post) {
-      setPage(page + 1)
+    } else if (input === "q") {
+      setTyping(true)
     }
   })
 
+  const renderContent = useCallback(() => {
+    switch (route) {
+      case "posts":
+        return <Posts setUrl={setUrl} pushRoute={pushRoute} />
+      case "post":
+        return <Post url={url} pushRoute={pushRoute} />
+      case "login":
+        return <Login pushRoute={pushRoute} />
+    }
+  }, [route])
+
   return (
     <>
-      {post ? (
-        <Post url={post} />
-      ) : (
-        <>
-          <Box>
-            {Object.entries(strategies).map(([name, label], i) => (
-              <Text key={name} bold={strategyIndex == i} color={strategyIndex == i ? "yellow" : undefined}>
-                {label}{" "}
-              </Text>
-            ))}
-          </Box>
-          <Posts page={page} perPage={perPage} strategy={Object.keys(strategies)[strategyIndex]} selected={selected} onPostSelect={url => setPost(url)} />
-        </>
+      <Profile />
+      {renderContent()}
+      {typing && (
+        <Box marginTop={2}>
+          <Text>{"> "}</Text>
+          <TextInput value={query} onChange={setQuery} focus={true} />
+        </Box>
       )}
     </>
   )
