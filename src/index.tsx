@@ -6,6 +6,7 @@ import Post from "./post"
 import Login from "./login"
 import Profile from "./components/Profile"
 import TextInput from "ink-text-input"
+import MakePost from "./makePost"
 
 const TabNews = () => {
   const [url, setUrl] = useState("")
@@ -26,8 +27,10 @@ const TabNews = () => {
           case "login":
             pushRoute("login")
             break
+          case "makepost":
+            pushRoute("makePost")
+            break
         }
-
       } else if (key.escape) {
         setTyping(false)
       }
@@ -44,6 +47,8 @@ const TabNews = () => {
         return <Post url={url} pushRoute={pushRoute} />
       case "login":
         return <Login pushRoute={pushRoute} />
+      case "makePost":
+        return <MakePost pushRoute={pushRoute} />
     }
   }, [route])
 

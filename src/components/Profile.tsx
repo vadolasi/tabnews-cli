@@ -6,10 +6,6 @@ import { readFile } from "fs/promises"
 import useSWR from "swr"
 import { request } from "undici"
 
-const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url}`)
-  .then(res => res.body.json())
-  .then(data => data)
-
 export default function Profile() {
   const [loadingUser, setLoadingUser] = useState(true)
   const [token, setToken] = useState<any>(null)

@@ -32,7 +32,7 @@ const Post: React.FC<Props> = ({ url, pushRoute }) => {
   const { data: post } = useSWR(`/contents${url}`, fetcher)
   const { data: comments } = useSWR(`/contents${url}/children`, fetcher)
 
-  useInput((input, key) => {
+  useInput((_input, key) => {
     if (key.escape || key.backspace) {
       pushRoute("posts")
     }
