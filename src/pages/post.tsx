@@ -8,7 +8,7 @@ import Link from "ink-link"
 import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
 import Spinner from "ink-spinner"
-import Comment from "./comment"
+import Comment from "../components/Comment"
 import axios from "axios"
 
 marked.setOptions({

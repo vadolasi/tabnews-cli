@@ -2,11 +2,11 @@ import React, { useCallback } from "react"
 import { Box, render, useInput, Text } from "ink"
 import Posts from "./posts"
 import { useState } from "react"
-import Post from "./post"
-import Login from "./login"
+import Post from "./pages/post"
+import Login from "./pages/login"
 import Profile from "./components/Profile"
 import TextInput from "ink-text-input"
-import MakePost from "./makePost"
+import MakePost from "./pages/makePost"
 
 const TabNews = () => {
   const [url, setUrl] = useState("")
