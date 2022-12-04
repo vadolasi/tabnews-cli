@@ -5,7 +5,7 @@ import { marked } from "marked"
 import TerminalRenderer from "marked-terminal"
 import { readFile, writeFile } from "fs/promises"
 import Spinner from "ink-spinner"
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 
 marked.setOptions({
   renderer: new TerminalRenderer()
@@ -33,7 +33,7 @@ export default function makePost({ pushRoute }: { pushRoute: Function }) {
     }
   }
 
-  useInput(async (input, key) => {
+  useInput(async (_input, key) => {
     if (key.return) {
       setLoading(true)
       const file = await readFile("session.json")

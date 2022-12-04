@@ -1,6 +1,5 @@
 import React from "react"
 import useSWR from "swr"
-import { request } from "undici"
 import { Text, useInput } from "ink"
 import { marked } from "marked"
 import TerminalRenderer from "marked-terminal"
@@ -10,6 +9,7 @@ import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
 import Spinner from "ink-spinner"
 import Comment from "./comment"
+import axios from "axios"
 
 marked.setOptions({
   renderer: new TerminalRenderer()
@@ -19,9 +19,7 @@ function parserMarkdown(text: string) {
   return marked(text)
 }
 
-const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url}`)
-  .then(res => res.body.json())
-  .then(data => data)
+const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 interface Props {
   url: string

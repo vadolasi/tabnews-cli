@@ -3,8 +3,8 @@ import { useState } from "react"
 import TextInput from "ink-text-input"
 import { Box, useInput, Text } from "ink"
 import Spinner from "ink-spinner"
-import { request } from "undici"
 import { writeFile } from "fs/promises"
+import axios from "axios"
 
 const Login = ({ pushRoute }: { pushRoute: Function }) => {
   const [email, setEmail] = useState("")
@@ -22,18 +22,18 @@ const Login = ({ pushRoute }: { pushRoute: Function }) => {
     } else if (key.return) {
       setLoading(true)
 
-      const response = await request(
+      const response = await axios.post(
         "https://www.tabnews.com.br/api/v1/sessions",
+        { email, password },
         {
           method: "POST",
           headers: {
             "content-type": "application/json"
-          },
-          body: JSON.stringify({ email, password })
+          }
         }
       )
 
-      const data = await response.body.text()
+      const data = await response.data
 
       await writeFile("session.json", data)
 

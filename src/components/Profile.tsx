@@ -4,7 +4,7 @@ import Spinner from "ink-spinner"
 import Link from "ink-link"
 import { readFile } from "fs/promises"
 import useSWR from "swr"
-import { request } from "undici"
+import axios from "axios"
 
 export default function Profile() {
   const [loadingUser, setLoadingUser] = useState(true)
@@ -13,16 +13,14 @@ export default function Profile() {
   const { data: userData } = useSWR(
     token ? "/user" : null,
     (url: string) =>
-      request(
+      axios.get(
         `https://www.tabnews.com.br/api/v1${url}`,
         {
           headers: {
             "cookie": `session_id=${token}`
           }
         }
-      )
-        .then(res => res.body.json())
-        .then(data => data)
+      ).then(res => res.data)
   )
 
   useEffect(() => {
