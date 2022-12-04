@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { Box, render, useInput, Text } from "ink"
-import Posts from "./posts"
+import Posts from "./pages/posts"
 import { useState } from "react"
 import Post from "./pages/post"
 import Login from "./pages/login"
