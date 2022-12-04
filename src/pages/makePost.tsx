@@ -5,7 +5,11 @@ import { marked } from "marked"
 import TerminalRenderer from "marked-terminal"
 import { readFile, writeFile } from "fs/promises"
 import Spinner from "ink-spinner"
-import axios from "axios"
+import { request } from "undici"
+
+const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url}`)
+  .then(res => res.body.json())
+  .then(data => data)
 
 marked.setOptions({
   renderer: new TerminalRenderer()
@@ -39,21 +43,23 @@ export default function makePost({ pushRoute }: { pushRoute: Function }) {
       const file = await readFile("session.json")
       const data = JSON.parse(file.toString())
 
-      const response = await axios.post(
+      const response = await request(
         `https://www.tabnews.com.br/api/v1/contents`,
         {
-          title: text[0],
-          body: text.splice(1, text.length).join("\n"),
-          status: "published"
-        },
-        {
+          body: JSON.stringify({
+            title: text[0],
+            body: text.splice(1, text.length).join("\n"),
+            status: "published"
+          }),
           headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
             cookie: `session_id=${data.token}`
           }
         }
       )
 
-      await writeFile("response.json", response.data)
+      await writeFile("response.json", await response.body.text())
       pushRoute("posts")
     } else if (key.downArrow) {
       if (currentLine < text.length - 1) {

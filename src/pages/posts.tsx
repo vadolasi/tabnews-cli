@@ -6,9 +6,12 @@ import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
 import Spinner from "ink-spinner"
 import { useState } from "react"
-import axios from "axios"
+import { request } from "undici"
 
-const fetcher = (url: string) => axios.get(url).then(res => res.data)
+const fetcher = (url: string) => request(`https://www.tabnews.com.br/api/v1${url}`)
+  .then(res => res.body.json())
+  .then(data => data)
+
 interface Props {
   setUrl: (url: string) => void
   pushRoute: (route: string) => void
