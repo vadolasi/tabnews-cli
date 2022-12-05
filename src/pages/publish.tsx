@@ -19,7 +19,7 @@ function parserMarkdown(text: string) {
   return marked(text)
 }
 
-export default function makePost({ pushRoute }: { pushRoute: Function }) {
+export default function Publish({ pushRoute }: { pushRoute: Function }) {
   const [text, setText] = useState<string[]>(["", ""])
   const [currentLine, setCurrentLine] = useState(0)
   const [, forceUpdate] = useReducer(x => x + 1, 0)

@@ -6,7 +6,7 @@ import Post from "./pages/post"
 import Login from "./pages/login"
 import Profile from "./components/Profile"
 import TextInput from "ink-text-input"
-import MakePost from "./pages/makePost"
+import Publish from "./pages/publish"
 
 const TabNews = () => {
   const [url, setUrl] = useState("")
@@ -27,8 +27,8 @@ const TabNews = () => {
           case "login":
             pushRoute("login")
             break
-          case "makepost":
-            pushRoute("makePost")
+          case "publicar":
+            pushRoute("publicar")
             break
         }
       } else if (key.escape) {
@@ -47,8 +47,8 @@ const TabNews = () => {
         return <Post url={url} pushRoute={pushRoute} />
       case "login":
         return <Login pushRoute={pushRoute} />
-      case "makePost":
-        return <MakePost pushRoute={pushRoute} />
+      case "publicar":
+        return <Publish pushRoute={pushRoute} />
     }
   }, [route])
 
