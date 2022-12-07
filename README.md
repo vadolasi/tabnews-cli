@@ -8,10 +8,10 @@ O TabNews é uma comunidade que tem como foco ser um pedaço da internet onde pe
 
 O desenvolvimento desse aplicativo está sendo docuemntado em postagens por lá, as quais você pode conferir abaixo:
 
-[Pitch: Tabnews no terminal](https://www.tabnews.com.br/vadolasi/estou-desenvolvendo-um-editor-de-codigo-online)
-[Essa postagem foi feita pelo terminal!](https://www.tabnews.com.br/vadolasi/essa-postagem-foi-feita-pelo-terminal)
-[Como eu mandei milhares de requisições para a API do TabNews sem querer 😅](https://www.tabnews.com.br/vadolasi/como-eu-mandei-milhares-de-requisicoes-para-a-api-do-tabnews-sem-querer)
-[Como criar aplicativos para terminal com React](https://www.tabnews.com.br/vadolasi/como-criar-aplicativos-para-terminal-com-react)
+- [Pitch: Tabnews no terminal](https://www.tabnews.com.br/vadolasi/estou-desenvolvendo-um-editor-de-codigo-online)
+- [Essa postagem foi feita pelo terminal!](https://www.tabnews.com.br/vadolasi/essa-postagem-foi-feita-pelo-terminal)
+- [Como eu mandei milhares de requisições para a API do TabNews sem querer 😅](https://www.tabnews.com.br/vadolasi/como-eu-mandei-milhares-de-requisicoes-para-a-api-do-tabnews-sem-querer)
+- [Como criar aplicativos para terminal com React](https://www.tabnews.com.br/vadolasi/como-criar-aplicativos-para-terminal-com-react)
 
 ## Como utilizar
 
