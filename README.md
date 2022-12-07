@@ -2,6 +2,17 @@
 
 Uma ferramenta de linha de comando para ler e publicar postagens no tabnews.
 
+## [TabNews](https://www.tabnews.com.br)
+
+O TabNews é uma comunidade que tem como foco ser um pedaço da internet onde pessoas que trabalham com tecnologia podem encontrar conteúdos com valor comcreto, sem distrações.
+
+O desenvolvimento desse aplicativo está sendo docuemntado em postagens por lá, as quais você pode conferir abaixo:
+
+[Pitch: Tabnews no terminal](https://www.tabnews.com.br/vadolasi/estou-desenvolvendo-um-editor-de-codigo-online)
+[Essa postagem foi feita pelo terminal!](https://www.tabnews.com.br/vadolasi/essa-postagem-foi-feita-pelo-terminal)
+[Como eu mandei milhares de requisições para a API do TabNews sem querer 😅](https://www.tabnews.com.br/vadolasi/como-eu-mandei-milhares-de-requisicoes-para-a-api-do-tabnews-sem-querer)
+[Como criar aplicativos para terminal com React](https://www.tabnews.com.br/vadolasi/como-criar-aplicativos-para-terminal-com-react)
+
 ## Como utilizar
 
 1. Instale os pacotes com o seu gerenciador:
@@ -43,3 +54,11 @@ bun run dev
   - Digite `publicar` e pressione `enter` para abrir a tela de publicação;
   - Insira o título e o conteúdo do post (use as setas para alternar entre titulo e conteudo e entre as linhas);
   - Pressione `enter` para publicar o post.
+
+## Autor
+
+Feito com ❤️ por Vitor Daniel no 🇧🇷. Se gostou do projeto, não esqueça de dar uma ⭐ e de me [seguir](https://github.com/vadolasi)
+
+## Contribuidores
+
+Um agradecimento especial ao [@jeffersoncbd](https://github.com/jeffersoncbd) por ajudar com esse projeto :) E a todos que deram sugestões lá no TabNews
