@@ -1,7 +1,6 @@
 import React from "react"
 import { Text, Box, useInput } from "ink"
 import useSWR from "swr"
-import Link from "ink-link"
 import { formatDistance } from "date-fns"
 import pt from "date-fns/locale/pt-BR"
 import Spinner from "ink-spinner"
@@ -25,6 +24,7 @@ const Posts: React.FC<Props> = ({ setUrl, pushRoute }) => {
   const [strategyIndex, setStrategyIndex] = useState(0)
 
   const { data } = useSWR(`/contents?page=${page}&per_page=${perPage}&strategy=${Object.keys(strategies)[strategyIndex]}`, fetcher)
+  useSWR(`/contents?page=${page + 1}&per_page=${perPage}&strategy=${Object.keys(strategies)[strategyIndex]}`, fetcher)
 
   useInput((input, key) => {
     // verify if the input is number between 0 and 9
