@@ -19,54 +19,35 @@ interface Props {
 
 const Posts: React.FC<Props> = ({ setUrl, pushRoute }) => {
   const [page, setPage] = useState(1)
-  const perPage = 20
-  const [selected, setSelected] = React.useState(0)
+  const perPage = 10
 
   const strategies = { relevant: "Relevantes", new: "Recentes", old: "Antigos" }
   const [strategyIndex, setStrategyIndex] = useState(0)
 
   const { data } = useSWR(`/contents?page=${page}&per_page=${perPage}&strategy=${Object.keys(strategies)[strategyIndex]}`, fetcher)
 
-  const [post, setPost] = useState<string | null>(null)
+  useInput((input, key) => {
+    // verify if the input is number between 0 and 9
+    if (input >= "0" && input <= "9") {
+      const post = data[parseInt(input)]
 
-  useInput((_input, key) => {
-    if (key.return) {
-      if (data) {
-        const post = data[selected]
-        if (post) {
-          setUrl(`/${post.owner_username}/${post.slug}`)
-          pushRoute("post")
-        }
-      }
+      setUrl(`/${post.owner_username}/${post.slug}`)
+      pushRoute("post")
     }
   })
 
   useInput((input, key) => {
-    if (key.escape || key.backspace) {
-      setPost(null)
-    } else if (key.tab && !post) {
+    if (key.tab) {
       if (strategyIndex < Object.entries(strategies).length - 1) {
         setStrategyIndex(strategyIndex + 1)
       } else {
         setStrategyIndex(0)
       }
-    } else if (key.upArrow && !post) {
-      if (selected > 0) {
-        setSelected(selected - 1)
-      } else {
-        setSelected(perPage - 1)
-      }
-    } else if (key.downArrow && !post) {
-      if (selected < perPage - 1) {
-        setSelected(selected + 1)
-      } else {
-        setSelected(0)
-      }
-    } else if (key.leftArrow && !post) {
+    } else if (key.leftArrow) {
       if (page > 1) {
         setPage(page - 1)
       }
-    } else if (key.rightArrow && !post) {
+    } else if (key.rightArrow) {
       setPage(page + 1)
     }
   })
@@ -83,9 +64,10 @@ const Posts: React.FC<Props> = ({ setUrl, pushRoute }) => {
       {data ? (
         (data as any[]).map((post, i) => (
           <Box key={post.id} marginTop={1}>
-            <Text color={selected === i ? "blue" : undefined}>
+            <Text>
               {/* @ts-ignore */}
-              <Link url={`https://www.tabnews.com.br/${post.owner_username}/${post.slug}`}>
+                <Text bold={true} color="green">{i}</Text>
+                <Text> - </Text>
                 <Text bold={true}>{post.title}</Text>
                 <Text> - </Text>
                 <Text color="blue">{post.tabcoins} tabcoins</Text>
@@ -93,12 +75,9 @@ const Posts: React.FC<Props> = ({ setUrl, pushRoute }) => {
                 <Text dimColor={true}>{formatDistance(new Date(post.created_at), new Date(), { locale: pt, addSuffix: true, includeSeconds: true })} atrás</Text>
                 <Text> - </Text>
                 <Text dimColor={true}>{post.children_deep_count} comentários</Text>
-              </Link>
                 <Text> - </Text>
                 {/* @ts-ignore */}
-                <Link url={`https://www.tabnews.com.br/${post.owner_username}`}>
-                  <Text backgroundColor="cyan">{post.owner_username}</Text>
-                </Link>
+                <Text backgroundColor="cyan">{post.owner_username}</Text>
             </Text>
           </Box>
         ))
